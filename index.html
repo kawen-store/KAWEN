@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101217">
+  <meta name="description" content="KAWEN - اكتشف أحدث المنتجات والعروض في مكان واحد.">
+  <title>KAWEN | تسوّق بذكاء</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
+<script src="script.js" defer></script>
+</head>
+<body>
+
+  <div class="announcement">
+    <span>⚡ عروض جديدة كل يوم</span>
+    <span>تسوّق بذكاء، ووفّر أكثر</span>
+  </div>
+
+  <header class="header">
+    <a class="brand" href="#home" aria-label="KAWEN الرئيسية">
+      <span class="brand-icon" id="accountLogo" hidden>K</span>
+      <span>KAWEN<span class="brand-dot">.</span></span>
+    </a>
+
+    <form class="search" id="searchForm">
+      <button aria-label="بحث" type="submit">⌕</button>
+      <input id="searchInput" type="search"
+        placeholder="ابحث عن منتج، هاتف، لابتوب..." autocomplete="off">
+    </form>
+
+
+
+    <div class="store-preferences">
+      <label class="sr-only" for="countrySelect">اختر الدولة</label>
+      
+<div class="country-picker" id="countryPicker">
+  <button
+    type="button"
+    id="countryPickerButton"
+    class="country-picker-button"
+    aria-haspopup="listbox"
+    aria-expanded="false"
+    aria-label="اختر الدولة"
+  >
+    <img id="countryPickerFlag" src="https://flagcdn.com/w40/eg.png" alt="">
+    <span id="countryPickerName">مصر</span>
+    <span class="country-picker-arrow">▾</span>
+  </button>
+
+  <div
+    id="countryPickerList"
+    class="country-picker-list"
+    role="listbox"
+    hidden
+  ></div>
+
+  <select id="countrySelect" aria-label="اختر الدولة" hidden>
+    <option value="EG">مصر</option>
+    <option value="SA">السعودية</option>
+    <option value="AE">الإمارات</option>
+    <option value="KW">الكويت</option>
+    <option value="QA">قطر</option>
+    <option value="BH">البحرين</option>
+    <option value="OM">عُمان</option>
+    <option value="JO">الأردن</option>
+    <option value="PS">فلسطين</option>
+    <option value="IQ">العراق</option>
+    <option value="LB">لبنان</option>
+    <option value="SY">سوريا</option>
+    <option value="YE">اليمن</option>
+    <option value="MA">المغرب</option>
+    <option value="DZ">الجزائر</option>
+    <option value="TN">تونس</option>
+    <option value="LY">ليبيا</option>
+    <option value="SD">السودان</option>
+    <option value="MR">موريتانيا</option>
+    <option value="SO">الصومال</option>
+    <option value="DJ">جيبوتي</option>
+    <option value="KM">جزر القمر</option>
+  </select>
+</div>
+
+
+      <button type="button" id="languageToggle"
+        aria-label="Switch language">
+        EN
+      </button>
+    </div>
+
+
+
+
+
+    <div class="header-actions">
+      <button class="header-btn" id="accountBtn">
+        <span>♙</span><small>حسابي</small>
+      </button>
+      <button class="header-btn" id="wishlistBtn">
+        <span>♡</span><small>المفضلة</small>
+        <b class="counter" id="wishlistCount">0</b>
+      </button>
+      <button class="header-btn cart-trigger" id="cartBtn">
+        <span>🛒</span><small>السلة</small>
+        <b class="counter" id="cartCount">0</b>
+      </button>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#home">الرئيسية</a>
+      <a href="#categories">الأقسام</a>
+      <a href="#products">المنتجات</a>
+      <a href="#offers">العروض</a>
+      <a href="#why-us">لماذا KAWEN؟</a>
+    </div>
+        <span class="nav-location">📍 <span id="countryLabel">مصر</span></span>
+  </nav>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <span class="eyebrow"><span class="live-dot"></span> اختيارات تستحق التجربة</span>
+        <h1>كل اللي بتحبه.<br><span>في مكان واحد.</span></h1>
+        <p>اكتشف أحدث التقنيات والمنتجات والعروض المختارة بعناية، وخلّي تجربة التسوّق أسهل وأمتع.</p>
+        <div class="hero-actions">
+          <a class="btn btn-yellow" href="#products">اكتشف المنتجات <span>←</span></a>
+          <a class="btn btn-outline" href="#categories">تصفّح الأقسام</a>
+        </div>
+        <div class="hero-stats">
+          <div><strong>01</strong><span>وجهتك للتسوّق</span></div>
+          <div><strong>∞</strong><span>اختيارات متنوعة</span></div>
+          <div><strong>24/7</strong><span>تصفّح في أي وقت</span></div>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="art-glow"></div>
+        <div class="art-tag tag-top">NEW COLLECTION ✦</div>
+        <img src="https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=1000&q=85"
+             alt="مجموعة من الأجهزة الإلكترونية الحديثة">
+        <div class="floating-card">
+          <span class="floating-icon">✦</span>
+          <div><strong>اختيارات مميزة</strong><small>اكتشف جديدنا</small></div>
+        </div>
+        <div class="art-tag tag-bottom">SMARTER SHOPPING.</div>
+      </div>
+    </section>
+
+    <section class="benefits" id="why-us">
+      <div class="benefit"><span>✦</span><div><strong>اختيارات متنوعة</strong><small>منتجات من أقسام مختلفة</small></div></div>
+      <div class="benefit"><span>⌕</span><div><strong>بحث سهل وسريع</strong><small>اعثر على ما تريد</small></div></div>
+      <div class="benefit"><span>♡</span><div><strong>قائمة المفضلة</strong><small>احتفظ بما يعجبك</small></div></div>
+      <div class="benefit"><span>🛒</span><div><strong>سلة مشتريات</strong><small>رتّب اختياراتك بسهولة</small></div></div>
+    </section>
+
+    <section class="section" id="categories">
+      <div class="section-heading">
+        <div><span class="section-kicker">تسوّق على مزاجك</span><h2>اكتشف الأقسام</h2></div>
+        <span class="heading-note">كل شيء أقرب مما تتخيّل</span>
+      </div>
+      <div class="category-grid">
+        <button class="category active" data-category="all"><span>✦</span><strong>كل المنتجات</strong></button>
+        <button class="category" data-category="electronics"><span>🎧</span><strong>إلكترونيات</strong></button>
+        <button class="category" data-category="phones"><span>📱</span><strong>هواتف</strong></button>
+        <button class="category" data-category="fashion"><span>👟</span><strong>أزياء</strong></button>
+        <button class="category" data-category="home"><span>🏠</span><strong>المنزل</strong></button>
+        <button class="category" data-category="accessories"><span>⌚</span><strong>إكسسوارات</strong></button>
+      </div>
+    </section>
+
+    <section class="section products-section" id="products">
+      <div class="section-heading">
+        <div><span class="section-kicker">اختياراتنا لك</span><h2 id="productsTitle">أفضل المنتجات</h2></div>
+        <select id="sortSelect" aria-label="ترتيب المنتجات">
+          <option value="featured">ترتيب مميز</option>
+          <option value="low">السعر: من الأقل للأعلى</option>
+          <option value="high">السعر: من الأعلى للأقل</option>
+          <option value="discount">أكبر خصم</option>
+        </select>
+      </div>
+      <div class="results-info" id="resultsInfo"></div>
+      <div class="product-grid" id="productGrid"></div>
+      <div class="empty-state" id="emptyState" hidden>
+        <span>⌕</span><h3>ما لقيناش المنتج ده</h3>
+        <p>جرّب كلمة بحث مختلفة أو اختار قسم تاني.</p>
+        <button class="btn btn-yellow" id="resetSearch">عرض كل المنتجات</button>
+      </div>
+    </section>
+
+    <section class="offer-banner" id="offers">
+      <div>
+        <span class="offer-label">YOUR NEXT FAVORITE IS HERE</span>
+        <h2>اختيارك الجاي<br>ممكن يكون هنا.</h2>
+        <p>تصفّح المنتجات واكتشف اختيارات تناسب يومك.</p>
+        <a class="btn btn-yellow" href="#products">ابدأ التسوّق ←</a>
+      </div>
+      <div class="offer-symbol">K<span>.</span></div>
+    </section>
+
+    <section class="newsletter">
+      <div><span class="section-kicker">خليك على اطلاع</span><h2>الجديد يوصلك أول بأول.</h2><p>اشترك لتصلك أخبار العروض والمنتجات الجديدة.</p></div>
+      <form id="newsletterForm">
+        <input type="email" id="newsletterEmail" placeholder="بريدك الإلكتروني" required>
+        <button class="btn btn-yellow" type="submit">اشترك الآن</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a class="brand" href="#home"><span class="brand-icon">K</span><span>KAWEN<span class="brand-dot">.</span></span></a>
+    <p>تجربة تسوّق بطابع مختلف.</p>
+    <div class="footer-links"><a href="#home">الرئيسية</a><a href="#products">المنتجات</a><a href="#why-us">عن المتجر</a></div>
+    <small>© <span id="year"></span> KAWEN. جميع الحقوق محفوظة.</small>
+    <small class="demo-note">نسخة تجريبية — الأسعار والمنتجات للعرض فقط.</small>
+  </footer>
+
+  <div class="overlay" id="overlay"></div>
+
+  <aside class="cart-drawer" id="cartDrawer" aria-label="سلة المشتريات" aria-hidden="true">
+    <div class="drawer-header">
+      <div><span class="section-kicker">اختياراتك</span><h2>سلة المشتريات</h2></div>
+      <button class="close-btn" id="closeCart" aria-label="إغلاق">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer">
+      <div class="total-row"><span>الإجمالي</span><strong id="cartTotal">0 ج.م</strong></div>
+      <button class="btn btn-yellow checkout-btn" id="checkoutBtn">متابعة الطلب</button>
+      <small>هذه نسخة تجريبية ولا تتم عمليات دفع حقيقية.</small>
+    </div>
+  </aside>
+
+
+  
+<dialog id="checkoutDialog" class="checkout-dialog">
+  <div class="checkout-header">
+    <div>
+      <span class="section-kicker">KAWEN CHECKOUT</span>
+      <h2>إتمام الطلب</h2>
+      <p>أدخل بياناتك لمتابعة طلبك.</p>
+    </div>
+    <button type="button" class="close-btn" id="closeCheckout" aria-label="إغلاق">✕</button>
+  </div>
+
+  <form id="checkoutForm">
+    
+<div id="checkoutNotice" class="checkout-notice" role="alert" aria-live="polite" hidden></div>
+
+    <div class="checkout-fields">
+      <label for="checkoutName">الاسم الكامل</label>
+      <input
+        type="text"
+        id="checkoutName"
+        name="name"
+        autocomplete="name"
+        placeholder="اكتب اسمك الكامل"
+        required
+      >
+
+      <label for="checkoutPhone">رقم الهاتف مع مفتاح الدولة</label>
+          <div class="phone-field">
+            <span id="phoneCountryCode" dir="ltr">+20</span>
+      <input
+        type="tel"
+        id="checkoutPhone"
+        name="phone"
+        autocomplete="tel-national"
+        inputmode="tel"
+        placeholder="10XXXXXXXX"
+        aria-label="رقم الهاتف"
+        required
+      >
+      </div>
+
+      <label for="checkoutCountryButton">الدولة</label>
+      <div class="checkout-country-picker" id="checkoutCountryPicker">
+  <input
+    type="hidden"
+    id="checkoutCountry"
+    name="country"
+    value="EG"
+  >
+
+  <button
+    type="button"
+    id="checkoutCountryButton"
+    class="checkout-country-button"
+    aria-haspopup="listbox"
+    aria-expanded="false"
+    aria-controls="checkoutCountryList"
+  >
+    <span id="checkoutCountryName">مصر</span>
+    <span class="checkout-country-arrow">▾</span>
+  </button>
+
+  <div
+    id="checkoutCountryList"
+    class="checkout-country-list"
+    role="listbox"
+    aria-label="اختر الدولة"
+    hidden
+  ></div>
+</div>
+
+      <label for="checkoutCity">المدينة</label>
+      <input
+        type="text"
+        id="checkoutCity"
+        name="city"
+        autocomplete="address-level2"
+        placeholder="اسم المدينة"
+        required
+      >
+
+      <label for="checkoutAddress">العنوان بالتفصيل</label>
+      <textarea
+        id="checkoutAddress"
+        name="address"
+        autocomplete="street-address"
+        placeholder="الحي، الشارع، رقم المبنى وأي تفاصيل تساعد في التوصيل"
+        rows="3"
+        required
+      ></textarea>
+
+      <label for="checkoutPayment">طريقة الدفع</label>
+      
+
+
+<select id="checkoutPayment" name="payment" required>
+  <option value="cod">💵 الدفع عند الاستلام</option>
+  <option value="card">💳 البطاقات البنكية (Visa / Mastercard) — تجريبي</option>
+  <option value="wallet">📱 المحافظ الإلكترونية — تجريبي</option>
+  <option value="bank">🏦 التحويل البنكي — تجريبي</option>
+</select>
+
+
+
+<div id="demoCardPayment" class="demo-card-payment" hidden>
+  <h3>بيانات البطاقة التجريبية</h3>
+  <p>هذه تجربة شكلية فقط. لا تستخدم بيانات بطاقتك الحقيقية.</p>
+
+  <div class="demo-card-visual">
+    <span>KAWEN PAY</span>
+    <strong id="demoCardPreviewNumber">•••• •••• •••• ••••</strong>
+    <div class="demo-card-bottom">
+      <span id="demoCardPreviewName">CARD HOLDER</span>
+      <span id="demoCardPreviewExpiry">MM/YY</span>
+    </div>
+  </div>
+
+  <div class="demo-card-fields">
+    <label for="demoCardNumber">رقم البطاقة التجريبية</label>
+    <input
+      type="text"
+      id="demoCardNumber"
+      inputmode="numeric"
+      autocomplete="off"
+      maxlength="19"
+      placeholder="1234 5678 9012 3456"
+    >
+
+    <label for="demoCardExpiry">تاريخ الانتهاء</label>
+    <input
+      type="text"
+      id="demoCardExpiry"
+      inputmode="numeric"
+      autocomplete="off"
+      maxlength="5"
+      placeholder="MM/YY"
+    >
+
+    <label for="demoCardCvv">رمز CVV التجريبي</label>
+    <input
+      type="password"
+      id="demoCardCvv"
+      inputmode="numeric"
+      autocomplete="off"
+      maxlength="4"
+      placeholder="123"
+    >
+  </div>
+
+  <p id="demoCardNotice" role="alert" hidden></p>
+
+  <button type="button" id="demoCardContinue">
+    متابعة التجربة
+  </button>
+</div>
+
+  <div class="demo-card-header">
+    <span>💳</span>
+    <div>
+      <strong>الدفع بالبطاقة</strong>
+      <p>معاينة تجريبية — لا تدخل بيانات بطاقتك الحقيقية</p>
+    </div>
+  </div>
+
+  <div class="demo-card-preview">
+    <div class="demo-card-brand">KAWEN PAY</div>
+    <div class="demo-card-number">•••• •••• •••• ••••</div>
+    <div class="demo-card-bottom">
+      <span>DEMO CARD</span>
+      <span>VISA / Mastercard</span>
+    </div>
+  </div>
+
+  <p class="demo-card-notice">
+    هذه واجهة للعرض فقط، ولا تعالج المدفوعات أو تحفظ بيانات البطاقة.
+  </p>
+
+  <button
+    type="button"
+    id="demoCardContinue"
+    class="btn btn-yellow checkout-submit"
+  >
+    متابعة التجربة
+  </button>
+</div>
+
+
+
+
+    </div>
+
+    <div class="checkout-summary">
+      <h3>ملخص طلبك</h3>
+      <div id="checkoutItems"></div>
+      <div class="total-row">
+        <span>الإجمالي</span>
+        <strong id="checkoutTotal">0</strong>
+      </div>
+      <p id="checkoutShippingNote">
+        تكلفة الشحن وتأكيد توفر الخدمة يُحددان حسب الدولة والعنوان.
+      </p>
+    </div>
+
+    <!-- Cloudflare Turnstile -->
+    <div class="turnstile-container">
+      <div
+        class="cf-turnstile"
+        data-sitekey="0x4AAAAAAFnrPiVk_CINm_us"
+      ></div>
+    </div>
+
+    <button class="btn btn-yellow checkout-submit" type="submit">
+      متابعة تأكيد الطلب
+    </button>
+
+    <p class="checkout-disclaimer">
+      نموذج تجريبي؛ لن يُرسل الطلب أو تُحصّل أي مدفوعات قبل ربط نظام الطلبات.
+    </p>
+  </form>
+  
+  <div id="checkoutConfirmation" class="checkout-confirmation" hidden>
+    <div class="confirmation-icon">✓</div>
+
+    <span class="section-kicker">KAWEN ORDER</span>
+    <h2>تم تجهيز طلبك بنجاح!</h2>
+
+    
+<p id="confirmationMessage">
+  تم استلام طلبك وحفظه بنجاح. سنراجع بيانات الطلب ونتواصل معك لتأكيده.
+</p>
+
+
+    <div class="confirmation-total">
+      <span>إجمالي الطلب</span>
+      <strong id="confirmationTotal">—</strong>
+    </div>
+
+    <div class="confirmation-total">
+      <span>طريقة الدفع</span>
+      <strong id="confirmationPayment">—</strong>
+    </div>
+
+    <button
+      type="button"
+      class="btn btn-yellow checkout-submit"
+      id="backToStore"
+    >
+      العودة إلى التسوّق
+    </button>
+  </div>
+
+</dialog>
+
+
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <dialog id="accountDialog" class="account-dialog">
+    <button type="button" class="close-btn dialog-close" id="closeAccount" aria-label="إغلاق">✕</button>
+
+    <span class="brand-icon">K</span>
+    <h2 id="accountTitle">تسجيل الدخول إلى KAWEN</h2>
+    <p id="accountDescription">سجّل الدخول باستخدام بريدك الإلكتروني وكلمة المرور.</p>
+
+    <form id="accountLoginForm">
+      <label for="accountEmail">البريد الإلكتروني</label>
+      <input
+        type="email"
+        id="accountEmail"
+        autocomplete="username"
+        placeholder="name@example.com"
+        required
+      >
+
+      <label for="accountPassword">كلمة المرور</label>
+      <input
+        type="password"
+        id="accountPassword"
+        autocomplete="current-password"
+        placeholder="أدخل كلمة المرور"
+        required
+      >
+
+      <p id="accountNotice" role="alert" aria-live="polite" hidden></p>
+
+      <button type="submit" class="btn btn-yellow" id="accountLoginBtn">
+        تسجيل الدخول
+      </button>
+
+      <button type="button" class="btn btn-outline" id="accountLogoutBtn" hidden>
+        تسجيل الخروج
+      </button>
+    </form>
+  </dialog>
+
+
+
+  
+<div class="product-modal" id="productModal" aria-hidden="true">
+  <div class="product-modal-overlay" data-close-product></div>
+
+  <section
+    class="product-modal-content"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="productModalName"
+  >
+    <button
+      type="button"
+      class="product-modal-close"
+      data-close-product
+      aria-label="إغلاق"
+    >×</button>
+
+    <div class="product-modal-image">
+      <img id="productModalImage" src="" alt="">
+    </div>
+
+    <div class="product-modal-info">
+      <span id="productModalCategory" class="product-category"></span>
+
+      <h2 id="productModalName"></h2>
+
+      <p id="productModalStock" class="product-modal-stock"></p>
+
+      <p id="productModalDescription" class="product-modal-description"></p>
+
+      <div class="price-line">
+        <strong id="productModalPrice" class="price"></strong>
+        <del id="productModalOldPrice" class="old-price"></del>
+      </div>
+
+      <div class="product-modal-quantity">
+        <label for="productModalQuantity">الكمية</label>
+        <div class="quantity-control">
+          <button type="button" id="productQuantityMinus" aria-label="تقليل الكمية">−</button>
+          <input
+            type="number"
+            id="productModalQuantity"
+            min="1"
+            max="99"
+            value="1"
+            inputmode="numeric"
+          >
+          <button type="button" id="productQuantityPlus" aria-label="زيادة الكمية">+</button>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="btn btn-yellow product-modal-add"
+        id="productModalAdd"
+      >🛒 أضف إلى السلة</button>
+    </div>
+  </section>
+</div>
+
+
+</body>
+</html>
